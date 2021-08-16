@@ -1,0 +1,30 @@
+body {
+  display: flex;
+  justify-content: center;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 250px;
+  height: 500px;
+}
+
+.display {
+  text-align: right;
+  height: 18px
+}
+
+.operation-display {
+  text-align: right;
+  height: 18px;
+}
+
+.row {
+  display: flex;
+}
+
+button {
+  flex: 1;
+}
