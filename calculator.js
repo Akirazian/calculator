@@ -5,6 +5,7 @@ const operators = document.querySelectorAll(".operator");
 const clearAllButton = document.getElementById("clear-all");
 const deleteButton = document.getElementById("delete");
 const equalsButton = document.getElementById("equals");
+const decimalButton = document.getElementById("decimal-point");
 
 function add(a, b) {
   return a + b;
@@ -37,47 +38,50 @@ function operate(num1, num2, operator) {
 
 function clearAll() {
   operationDisplay.innerText = "";
-  display.innerText = "";
   firstNumber = 0;
-  currentOperation = "";
+  display.innerText = "0";
+  operatorCheck = true;
 }
 
 function updateDisplay(event) {
-  // let operators = ["+", "−", "×", "÷"];
-  // let operatorCheck = operators.some(operator => operationDisplay.innerText.includes(operator));
-  if (operatorCheck === true) {
+  if (operatorCheck === true) { 
+    if (event.target.innerText === "0") return;
     display.innerText = event.target.innerText;
     operatorCheck = false;
     return;
-  }
+  } 
+
+  if (display.innerText.includes(".") && event.target.innerText === ".") return;
   display.innerText += event.target.innerText;
+  
 }
 
 let firstNumber = 0
 let currentOperation = "";
-let operatorCheck = false;
+let operatorCheck = true;
 
 function callOperator(event) {
   firstNumber = +display.innerText;
   currentOperation = event.target.innerText;
   operatorCheck = true;
-  operationDisplay.innerText = firstNumber + currentOperation;
-  console.log(firstNumber)
+  operationDisplay.innerText = ` ${firstNumber} ${currentOperation}`;
 }
 
-function backspace() {
-  display.innerText = display.innerText.slice(0, -1);
+function clearCurrent() {
+  display.innerText = "0";
+  operatorCheck = true;
 }
 
 function equals() {
   let secondNumber = +display.innerText;
   let answer = operate(firstNumber, secondNumber, currentOperation);
-  operationDisplay.innerText = firstNumber + currentOperation + secondNumber;
-  display.innerText = answer;
+  operationDisplay.innerText = `${firstNumber} ${currentOperation} ${secondNumber} =`;
+  display.innerText = Math.round(answer * 100) / 100;
+  operatorCheck = true;
 }
 
 numbers.forEach(button => button.addEventListener("click", updateDisplay));
 operators.forEach(button => button.addEventListener("click", callOperator));
 clearAllButton.addEventListener("click", clearAll);
-deleteButton.addEventListener("click", backspace);
+deleteButton.addEventListener("click", clearCurrent);
 equalsButton.addEventListener("click", equals);
