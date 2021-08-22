@@ -36,52 +36,69 @@ function operate(num1, num2, operator) {
   }
 }
 
-function clearAll() {
-  operationDisplay.innerText = "";
-  firstNumber = 0;
-  display.innerText = "0";
-  operatorCheck = true;
-}
+let firstNumber = 0
+let currentOperation = "";
+let writeOverCheck = true;
+let operatorCheck = false;
 
-function updateDisplay(event) {
-  if (operatorCheck === true) { 
-    if (event.target.innerText === "0") return;
+function numberPress(event) {
+  if (writeOverCheck === true) { 
+    if (event.target.innerText === "0") return; //prevent multiple 0's 
     display.innerText = event.target.innerText;
-    operatorCheck = false;
+    writeOverCheck = false;
     return;
   } 
 
-  if (display.innerText.includes(".") && event.target.innerText === ".") return;
+  if (display.innerText.includes(".") && event.target.innerText === ".") return; //prevent more than one "."
   display.innerText += event.target.innerText;
-  
 }
 
-let firstNumber = 0
-let currentOperation = "";
-let operatorCheck = true;
+function clearAll() {
+  operationDisplay.innerText = "";
+  firstNumber = 0;
+  currentOperation = "";
+  display.innerText = "0";
+  writeOverCheck = true;
+  operatorCheck = false;
+}
 
-function callOperator(event) {
+function clearCurrent() {
+  display.innerText = "0";
+  writeOverCheck = true;
+}
+
+function operatorPress(event) {
+  if (firstNumber > 0) {
+    firstNumber = getAnswer();
+    display.innerText = firstNumber;
+  }
   firstNumber = +display.innerText;
   currentOperation = event.target.innerText;
+  writeOverCheck = true;
   operatorCheck = true;
   operationDisplay.innerText = ` ${firstNumber} ${currentOperation}`;
 }
 
 function clearCurrent() {
   display.innerText = "0";
-  operatorCheck = true;
+  writeOverCheck = true;
 }
 
-function equals() {
+function getAnswer() {
   let secondNumber = +display.innerText;
   let answer = operate(firstNumber, secondNumber, currentOperation);
-  operationDisplay.innerText = `${firstNumber} ${currentOperation} ${secondNumber} =`;
-  display.innerText = Math.round(answer * 100) / 100;
-  operatorCheck = true;
+  return Math.round(answer * 100) / 100;
 }
 
-numbers.forEach(button => button.addEventListener("click", updateDisplay));
-operators.forEach(button => button.addEventListener("click", callOperator));
+function equalsPress() {
+  let secondNumber = +display.innerText;
+  operationDisplay.innerText = `${firstNumber} ${currentOperation} ${secondNumber} =`;
+  display.innerText = getAnswer();
+  writeOverCheck = true;
+}
+
+numbers.forEach(button => button.addEventListener("click", numberPress));
+operators.forEach(button => button.addEventListener("click", operatorPress));
 clearAllButton.addEventListener("click", clearAll);
 deleteButton.addEventListener("click", clearCurrent);
-equalsButton.addEventListener("click", equals);
+equalsButton.addEventListener("click", equalsPress);
