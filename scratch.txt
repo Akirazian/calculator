@@ -1,3 +1,0 @@
-if an operator is pressed 
-  and if there is a new number in the display and an operator prepped
-    calculate the answer and make it the new first number and prep the new operator
