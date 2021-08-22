@@ -6,6 +6,7 @@ const clearAllButton = document.getElementById("clear-all");
 const deleteButton = document.getElementById("delete");
 const equalsButton = document.getElementById("equals");
 const decimalButton = document.getElementById("decimal-point");
+const plusMinusButton = document.getElementById("plus-minus");
 
 function add(a, b) {
   return a + b;
@@ -39,7 +40,6 @@ function operate(num1, num2, operator) {
 let firstNumber = 0
 let currentOperation = "";
 let writeOverCheck = true;
-let operatorCheck = false;
 
 function numberPress(event) {
   if (writeOverCheck === true) { 
@@ -59,7 +59,6 @@ function clearAll() {
   currentOperation = "";
   display.innerText = "0";
   writeOverCheck = true;
-  operatorCheck = false;
 }
 
 function clearCurrent() {
@@ -68,14 +67,13 @@ function clearCurrent() {
 }
 
 function operatorPress(event) {
-  if (firstNumber > 0) {
+  if (firstNumber != 0 && firstNumber != display.innerText) {
     firstNumber = getAnswer();
     display.innerText = firstNumber;
-  }
+  };
   firstNumber = +display.innerText;
   currentOperation = event.target.innerText;
   writeOverCheck = true;
-  operatorCheck = true;
   operationDisplay.innerText = ` ${firstNumber} ${currentOperation}`;
 }
 
@@ -95,6 +93,19 @@ function equalsPress() {
   operationDisplay.innerText = `${firstNumber} ${currentOperation} ${secondNumber} =`;
   display.innerText = getAnswer();
   writeOverCheck = true;
+  firstNumber = "0";
+}
+
+function flipSign() {
+  if (display.innerText > 0) {
+    display.innerText = -Math.abs(display.innerText);
+    return;
+  };
+
+  if (display.innerText < 0) {
+    display.innerText = Math.abs(display.innerText);
+    return;
+  };
 }
 
 numbers.forEach(button => button.addEventListener("click", numberPress));
@@ -102,3 +113,4 @@ operators.forEach(button => button.addEventListener("click", operatorPress));
 clearAllButton.addEventListener("click", clearAll);
 deleteButton.addEventListener("click", clearCurrent);
 equalsButton.addEventListener("click", equalsPress);
+plusMinusButton.addEventListener("click", flipSign);
