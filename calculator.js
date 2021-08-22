@@ -7,6 +7,7 @@ const deleteButton = document.getElementById("delete");
 const equalsButton = document.getElementById("equals");
 const decimalButton = document.getElementById("decimal-point");
 const plusMinusButton = document.getElementById("plus-minus");
+const exponentNumber = document.getElementById("exponent");
 
 function add(a, b) {
   return a + b;
@@ -24,6 +25,10 @@ function divide(a, b) {
   return a / b;
 }
 
+function power (a, b) {
+  return a ** b;
+}
+
 function operate(num1, num2, operator) {
   switch(operator) {
     case "+":
@@ -34,6 +39,8 @@ function operate(num1, num2, operator) {
       return multiply(num1, num2);
     case "÷":
       return divide(num1, num2);
+    case "^":
+      return power(num1, num2);
   }
 }
 
@@ -67,12 +74,16 @@ function clearCurrent() {
 }
 
 function operatorPress(event) {
-  if (firstNumber != 0 && firstNumber != display.innerText) {
+  if (firstNumber != 0 && firstNumber != display.innerText) { //Allows strining together multiple operators
     firstNumber = getAnswer();
     display.innerText = firstNumber;
   };
+
   firstNumber = +display.innerText;
   currentOperation = event.target.innerText;
+  if (event.target.id === "exponent" || event.target.tagName === "SUP") {
+    currentOperation = "^"
+  }
   writeOverCheck = true;
   operationDisplay.innerText = ` ${firstNumber} ${currentOperation}`;
 }
