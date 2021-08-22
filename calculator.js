@@ -126,11 +126,13 @@ function getAnswer() {
 }
 
 function equalsPress() {
+  if (currentOperation === "") return;
   let secondNumber = +display.innerText;
   operationDisplay.innerText = `${firstNumber} ${currentOperation} ${secondNumber} =`;
   display.innerText = getAnswer();
   writeOverCheck = true;
   firstNumber = "0";
+  currentOperation = "";
 }
 
 function flipSign() {
