@@ -2,14 +2,16 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  font-family: monospace;
+  font-family: monospace;  
   height: 100vh;
 }
 
 .container {
   position: relative;
+  border: 2px solid black;
+  border-radius: 15px;
   bottom: 100px;
-  background-color: gray;
+  background-color: #8A8792;
   display: flex;
   flex-direction: column; 
   width: 400px;
@@ -24,17 +26,20 @@ body {
   margin: 10px;
 }
 
-.display {
-  text-align: right;
-  font-size: 35px;
-  height: auto;
-}
-
 .operation-display {
   text-align: right;
-  font-size: 15px;
-  height: 18px;
+  font-size: 20px;
+  height: 25px;
+  padding-right: 15px;
   padding-bottom: 5px;
+}
+
+.display {
+  text-align: right;
+  font-size: 40px;
+  height: 40px;
+  padding-right: 10px;
+  padding-bottom: 10px;
 }
 
 .buttons {
@@ -43,10 +48,47 @@ body {
   grid-auto-rows: 1fr;
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: repeat(4, 1fr);
-  gap: 2px 2px;
+  gap: 5px 5px;
 }
 
 button {
   font-size: 25px;
   font-family: monospace;
+  border: 2px solid black;
+  border-radius: 5px;
+}
+
+button:hover {
+  filter: brightness(93%);
+}
+
+button:active {
+  filter: brightness(85%);
+}
+
+button:focus {
+  outline: none;
+}
+
+.clear {
+  background-color: #EDAFAF;
+}
+
+.operator {
+  background-color: #1BC6FF;
+}
+
+#equals {  
+  background-color: #FCE098;
+}
+
+footer {
+  position: fixed;
+  font-size: 20px;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  padding-bottom: 15px;
+  margin-bottom: 15px;
+  text-align: center;
 }

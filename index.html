@@ -3,6 +3,9 @@
   <head>
     <title>Calculator</title>
     <link rel="stylesheet" href="style.css"> 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
   </head>
   <body>
     <div class="container">
@@ -13,7 +16,7 @@
       <div class="buttons">
           <button class="clear" id="clear-all">AC</button>
           <button class="clear" id="delete">C</button>
-          <button id="plus-minus">±</button>
+          <button class="operator" id="exponent">x<sup>y</sup></button>
           <button class="operator" id="divide">÷</button>
           <button class="number" id="7">7</button>
           <button class="number" id="8">8</button>
@@ -29,14 +32,14 @@
           <button class="operator" id="plus">+</button>
           <button class="number" id="1">0</button>
           <button class="number" id="decimal-point">.</button>
-          <button class="operator" id="exponent">x<sup>y</sup></button>
+          <button id="plus-minus">±</button>
           <button id="equals">=</button>
         </div>
       </div>
-
-
-
     </div>
+    <footer>
+      Created by <a href="https://github.com/Akirazian">Al-Kiraz</a>
+    </footer>
 
   </body>
   <script src="calculator.js"></script>
