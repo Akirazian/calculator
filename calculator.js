@@ -51,7 +51,7 @@ let writeOverCheck = true;
 function numberPress(event) {
   if (event.type === "click") { 
     if (writeOverCheck === true) { 
-      if (event.target.innerText === "0") return; //prevent multiple 0's 
+      if (event.target.innerText === "0" && display.text === "0") return; //prevent multiple 0's 
       display.innerText = event.target.innerText;
       writeOverCheck = false;
       return;
@@ -63,7 +63,7 @@ function numberPress(event) {
 
   if (event.type === "keydown") { 
     if (writeOverCheck === true) { 
-      if (event.key === "0") return; //prevent multiple 0's 
+      if (event.key === "0" && display.text === "0") return; //prevent multiple 0's 
       display.innerText = event.key;
       writeOverCheck = false;
       return;
@@ -161,7 +161,10 @@ document.addEventListener("keydown", (event) => {
   if (operators.indexOf(event.key) > -1) {
     operatorPress(event);
   }
-  if (event.key === "Enter") equalsPress();
+  if (event.key === "Enter") { 
+    equalsPress()
+    event.preventDefault();
+  };
   if (event.key === "Backspace") display.innerText = display.innerText.slice(0, -1);
   if (event.key === "Delete") clearAll();
 });
