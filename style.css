@@ -1,9 +1,14 @@
 body {
   display: flex;
   justify-content: center;
+  align-items: center;
+  font-family: monospace;
+  height: 100vh;
 }
 
 .container {
+  position: relative;
+  bottom: 100px;
   background-color: gray;
   display: flex;
   flex-direction: column; 
@@ -21,13 +26,15 @@ body {
 
 .display {
   text-align: right;
-  font-size: xx-large;
+  font-size: 35px;
   height: auto;
 }
 
 .operation-display {
   text-align: right;
+  font-size: 15px;
   height: 18px;
+  padding-bottom: 5px;
 }
 
 .buttons {
@@ -37,4 +44,9 @@ body {
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: repeat(4, 1fr);
   gap: 2px 2px;
+}
+
+button {
+  font-size: 25px;
+  font-family: monospace;
 }
