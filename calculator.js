@@ -88,13 +88,14 @@ function clearCurrent() {
 }
 
 function operatorPress(event) {
-    if (firstNumber != 0 && firstNumber != display.innerText) { //Allows strining together multiple operators
-      firstNumber = getAnswer();
-      display.innerText = firstNumber;
-    };
+  if (firstNumber != 0 && firstNumber != display.innerText) { //Allows strining together multiple operators
+    firstNumber = getAnswer();
+    display.innerText = firstNumber;
+  };
+
+  firstNumber = Number(display.innerText);
 
   if (event.type === "click") {
-    firstNumber = +display.innerText;
     currentOperation = event.target.innerText;
     if (event.target.id === "exponent" || event.target.tagName === "SUP") {
       currentOperation = "^"
@@ -104,10 +105,9 @@ function operatorPress(event) {
   }
 
   if (event.type === "keydown") {
-    firstNumber = +display.innerText;
     currentOperation = event.key;
     if (event.key === "-") currentOperation = "−";
-    if (event.key === "*") currentOperation = "×";
+    if (["*", "x", "X"].indexOf(event.key) > -1) currentOperation = "×";
     if (event.key === "/") currentOperation = "÷";
     writeOverCheck = true;
     operationDisplay.innerText = ` ${firstNumber} ${currentOperation}`;
@@ -120,7 +120,7 @@ function clearCurrent() {
 }
 
 function getAnswer() {
-  let secondNumber = +display.innerText;
+  let secondNumber = Number(display.innerText);
   let answer = operate(firstNumber, secondNumber, currentOperation);
   return Math.round(answer * 100) / 100;
 }
@@ -131,7 +131,7 @@ function equalsPress() {
   operationDisplay.innerText = `${firstNumber} ${currentOperation} ${secondNumber} =`;
   display.innerText = getAnswer();
   writeOverCheck = true;
-  firstNumber = "0";
+  firstNumber = 0;
   currentOperation = "";
 }
 
@@ -157,7 +157,7 @@ document.addEventListener("keydown", (event) => {
   if (+event.key >= 0 || event.key === ".") {
     numberPress(event);
   }
-  let operators = ["+", "-", "*", "/", "^"];
+  let operators = ["+", "-", "*", "x", "X", "/", "^"];
   if (operators.indexOf(event.key) > -1) {
     operatorPress(event);
   }
@@ -166,5 +166,6 @@ document.addEventListener("keydown", (event) => {
     event.preventDefault();
   };
   if (event.key === "Backspace") display.innerText = display.innerText.slice(0, -1);
+  if (event.key === "c") clearCurrent();
   if (event.key === "Delete") clearAll();
 });
